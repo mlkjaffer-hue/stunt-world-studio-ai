@@ -1,0 +1,8 @@
+.env
+node_modules/
+*.db
+*.db-journal
+backend/public/media/
+backend/public/uploads/
+backend/public/thumbs/
+.DS_Store
