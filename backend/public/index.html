@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stunt World Studio AI — AI Image & Video Studio</title>
+<meta name="description" content="Generate cinematic AI images and videos. Free tier up to 15s, paid studio models for up to 10 minutes." />
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">🎬</span>
+    <div>
+      <div class="brand-name">STUNT WORLD STUDIO <span class="ai">AI</span></div>
+      <div class="brand-sub">Cinematic AI Image & Video Studio</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div id="wallet-chip" class="wallet-chip hidden">🪙 <b id="chip-credits">0</b> credits</div>
+    <div id="auth-area"></div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>Create <span class="grad">Cinematic AI Videos</span> in Seconds</h1>
+    <p class="hero-sub">Text-to-video, image-to-video and AI images — free up to 15 seconds, studio models up to 10 minutes.</p>
+    <div class="hero-badges">
+      <span class="pill pill-free">FREE · up to 15s</span>
+      <span class="pill pill-paid">PAID · 30s – 10 min</span>
+      <span class="pill">Seedance 2.5 · Kling 3.0 · Veo 3.1</span>
+    </div>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="image">🖼 Image</button>
+    <button class="tab" data-tab="t2v">🎥 Text-to-Video</button>
+    <button class="tab" data-tab="i2v">🖼→🎥 Image-to-Video</button>
+    <button class="tab" data-tab="pricing">💰 Pricing</button>
+    <button class="tab" data-tab="wallet">👛 Wallet</button>
+    <button class="tab" data-tab="creations">📁 My Creations</button>
+  </nav>
+
+  <!-- IMAGE -->
+  <section class="panel" id="panel-image">
+    <h2>AI Image Generator <span class="pill pill-free">FREE</span></h2>
+    <label class="lbl">Prompt</label>
+    <textarea id="img-prompt" rows="3" placeholder="A truck on the edge of a cliff at sunset, cinematic, ultra detailed…"></textarea>
+    <div class="row">
+      <div>
+        <label class="lbl">Aspect</label>
+        <div class="seg" id="img-aspect">
+          <button data-v="9:16" class="on">9:16</button><button data-v="16:9">16:9</button><button data-v="1:1">1:1</button>
+        </div>
+      </div>
+      <button class="btn primary" id="img-generate">✨ Generate Image</button>
+    </div>
+    <div class="result" id="img-result"></div>
+  </section>
+
+  <!-- TEXT TO VIDEO -->
+  <section class="panel hidden" id="panel-t2v">
+    <h2>Text-to-Video</h2>
+    <label class="lbl">Prompt</label>
+    <textarea id="t2v-prompt" rows="3" placeholder="Jet dogfight over snowy Himalayan mountains, cinematic aerial shot…"></textarea>
+    <label class="lbl">Model</label>
+    <select id="t2v-model" class="select"></select>
+    <p class="hint" id="t2v-model-hint"></p>
+    <div class="row wrap">
+      <div>
+        <label class="lbl">Duration</label>
+        <div class="seg" id="t2v-duration"></div>
+      </div>
+      <div>
+        <label class="lbl">Aspect</label>
+        <div class="seg" id="t2v-aspect">
+          <button data-v="9:16" class="on">9:16</button><button data-v="16:9">16:9</button><button data-v="1:1">1:1</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cost-line" id="t2v-cost"></div>
+      <button class="btn primary" id="t2v-generate">🎬 Generate Video</button>
+    </div>
+    <div class="result" id="t2v-result"></div>
+  </section>
+
+  <!-- IMAGE TO VIDEO -->
+  <section class="panel hidden" id="panel-i2v">
+    <h2>Image-to-Video</h2>
+    <label class="lbl">Start image</label>
+    <div class="upload-box" id="i2v-drop">
+      <input type="file" id="i2v-file" accept="image/*" hidden />
+      <div id="i2v-preview" class="upload-preview">📤 Click to upload an image <small>(or generate one in the Image tab and copy its URL)</small></div>
+    </div>
+    <label class="lbl">Motion prompt</label>
+    <textarea id="i2v-prompt" rows="3" placeholder="Camera slowly pushes in, waves crash, dramatic clouds move…"></textarea>
+    <label class="lbl">Model</label>
+    <select id="i2v-model" class="select"></select>
+    <p class="hint" id="i2v-model-hint"></p>
+    <div class="row wrap">
+      <div>
+        <label class="lbl">Duration</label>
+        <div class="seg" id="i2v-duration"></div>
+      </div>
+      <div>
+        <label class="lbl">Aspect</label>
+        <div class="seg" id="i2v-aspect">
+          <button data-v="9:16" class="on">9:16</button><button data-v="16:9">16:9</button><button data-v="1:1">1:1</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="cost-line" id="i2v-cost"></div>
+      <button class="btn primary" id="i2v-generate">🎬 Generate Video</button>
+    </div>
+    <div class="result" id="i2v-result"></div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="panel hidden" id="panel-pricing">
+    <h2>Pricing</h2>
+    <div class="price-grid">
+      <div class="price-card free-card">
+        <h3>🆓 FREE</h3>
+        <div class="price-big">$0</div>
+        <ul>
+          <li>AI images (daily limit)</li>
+          <li>Videos up to <b>15 seconds</b></li>
+          <li><b>3 free videos / day</b></li>
+          <li>Cinematic animated-stills engine</li>
+        </ul>
+      </div>
+      <div class="price-card paid-card">
+        <h3>⚡ STUDIO <span class="pill pill-paid">PAID</span></h3>
+        <div class="price-big">Pay per second</div>
+        <ul>
+          <li>Videos <b>30s → 10 min</b></li>
+          <li>Long videos auto-stitched from clips</li>
+          <li>Top-tier models, native audio</li>
+        </ul>
+      </div>
+    </div>
+    <h3 class="mt">Per-second rates</h3>
+    <div class="table-wrap"><table class="rates" id="rates-table">
+      <thead><tr><th>Model</th><th>Provider</th><th>Price / sec</th><th>30s video</th><th>1 min video</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="hint">1 credit = $0.01. Recharge via bank transfer in the Wallet tab. Longer clips are generated in segments (Kling 10s, Veo 8s, Seedance 30s) and stitched automatically.</p>
+  </section>
+
+  <!-- WALLET -->
+  <section class="panel hidden" id="panel-wallet">
+    <h2>Wallet</h2>
+    <div id="wallet-summary" class="wallet-summary"></div>
+    <h3 class="mt">🔋 Recharge via bank transfer</h3>
+    <div id="bank-card" class="bank-card"></div>
+    <div class="recharge-form">
+      <label class="lbl">Amount (PKR)</label>
+      <input type="number" id="rech-amount" class="input" min="100" step="50" placeholder="e.g. 1000" />
+      <label class="lbl">Bank transaction reference</label>
+      <input type="text" id="rech-txref" class="input" placeholder="e.g. FT26183472910" />
+      <label class="lbl">Note (optional)</label>
+      <input type="text" id="rech-note" class="input" placeholder="Your name / account title" />
+      <button class="btn primary mt" id="rech-submit">Submit recharge request</button>
+      <p class="hint">Transfer to the account above, then submit your reference. The site owner approves it and credits appear in your wallet.</p>
+    </div>
+    <h3 class="mt">My recharge requests</h3>
+    <div id="rech-list" class="rech-list"></div>
+  </section>
+
+  <!-- CREATIONS -->
+  <section class="panel hidden" id="panel-creations">
+    <h2>My Creations</h2>
+    <div id="creations-grid" class="creations-grid"></div>
+  </section>
+</main>
+
+<!-- AUTH MODAL -->
+<div class="modal hidden" id="auth-modal">
+  <div class="modal-card">
+    <h2 id="auth-title">Log in</h2>
+    <label class="lbl">Username</label>
+    <input type="text" id="auth-username" class="input" autocomplete="username" />
+    <label class="lbl">Password</label>
+    <input type="password" id="auth-password" class="input" autocomplete="current-password" />
+    <button class="btn primary wide mt" id="auth-submit">Continue</button>
+    <p class="hint center mt"><a href="#" id="auth-toggle">New here? Create an account</a></p>
+    <button class="modal-x" id="auth-close">✕</button>
+  </div>
+</div>
+
+<div id="toasts"></div>
+
+<footer class="footer">
+  <p>© 2026 Stunt World Studio AI · Cinematic AI content studio · AI-generated media — label as AI content when posting.</p>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
