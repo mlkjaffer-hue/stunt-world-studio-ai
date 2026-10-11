@@ -1,0 +1,1 @@
+{"dependencies":{"bcryptjs":"^3.0.2","dotenv":"^16.4.7","express":"^4.21.2"},"description":"Stunt World Studio AI — AI image & video generation studio (free + paid tiers)","engines":{"node":">=18"},"main":"server.js","name":"stunt-world-studio-ai","scripts":{"start":"node server.js"},"version":"1.0.0"}
