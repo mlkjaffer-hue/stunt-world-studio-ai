@@ -1,3 +1,15 @@
+---
+title: Stunt World Studio AI
+emoji: 🎬
+colorFrom: purple
+colorTo: pink
+sdk: docker
+app_port: 7860
+pinned: false
+license: mit
+short_description: AI image and video generation studio — free tier plus paid tiers
+---
+
 # 🎬 Stunt World Studio AI
 
 A complete AI image & video generation studio website — **free tier + paid tier**, one deploy, no build step.
